@@ -285,6 +285,17 @@
     ]
   },
   {
+    "objectID": "src/ica/ica_shiny_app.html",
+    "href": "src/ica/ica_shiny_app.html",
+    "title": "ICA Shiny App Link",
+    "section": "",
+    "text": "Click the link below for the interactive shiny app:\nhttps://gnieves2004.shinyapps.io/neighborhood_diversity/",
+    "crumbs": [
+      "In-Class Activities",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>ICA Shiny App Link</span>"
+    ]
+  },
+  {
     "objectID": "src/appx/appx-sample1.html",
     "href": "src/appx/appx-sample1.html",
     "title": "Appendix A — Appendix Sample 1",
