@@ -1,0 +1,7 @@
+---
+title: "ICA Shiny App Link"
+---
+
+Click the link below for the interactive shiny app:
+
+<https://gnieves2004.shinyapps.io/neighborhood_diversity/>
