@@ -71,8 +71,8 @@ book:
 
     - part: "In-Class Activities"
       chapters:
-      - src/ica/ica-sample1.qmd
-      - src/ica/ica-sample2.qmd
+      - src/ica/03-adv-ggplot-notes.qmd
+      - src/ica/18-interactive-viz-notes.qmd
 
 
   appendices:

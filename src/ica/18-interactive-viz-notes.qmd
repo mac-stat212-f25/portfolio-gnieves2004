@@ -276,13 +276,26 @@ plotOutput(outputId = "plot_over_years")
 
 server <- function(input, output) {
     output$plot_over_years <- renderPlot({ # Note the curly braces that enclose the R code below
-        filter(metro_name == "selected_city") %>%
-        ggplot(aes(x = entropy, y = distmiles), data = data_by_dist) +
-        geom_point() +
-        geom_smooth(method ="loess", span = "selected_span") +
-        labs(x = "Entropy", y = "Distance in Miles", title = "Entropy vs. Distance")
+        ggplot(...) +
+            scale_x_continuous(limits = c(input$min_year, input$max_year))
     })
+
+#server function in shiny app for neighborhood diversity
+server <- function(input, output) {
+  output$distPlot <- renderPlotly({ # Note the curly braces that enclose the R code below
+    p <- data_by_dist %>%
+    st_drop_geometry() %>%
+    filter(metro_name == input$selected_city) %>%
+      ggplot(aes(x = distmiles, y = entropy)) +
+      geom_point() +
+      geom_smooth(method ="loess", span = input$selected_span, color = "red") +
+      theme_minimal() +
+      labs(x = "Diversity Score", y = "Distance in Miles from City Hall")
+
+   ggplotly(p)
+  })
 }
+
 ```
 
 

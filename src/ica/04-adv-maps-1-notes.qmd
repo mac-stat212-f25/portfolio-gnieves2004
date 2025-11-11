@@ -102,7 +102,7 @@ See [Spatial Data Appendix](https://hash-mac.github.io/stat212site-f25/notes/spa
 nc <- st_read(system.file("shape/nc.shp", package = "sf"))
 
 # Read in shapefiles just downloaded
-mn_cities <- st_read("Add correct relative path to city_and_township_population_centers.shp")
+mn_cities <- st_read("../../data/raw/shp_loc_centers/city_and_township_population_centers.shp")
 mn_water <- st_read("Add correct relative path to LakesAndRivers.shp")
 ```
 
