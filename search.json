@@ -43,25 +43,245 @@
     ]
   },
   {
-    "objectID": "src/ica/ica-sample1.html",
-    "href": "src/ica/ica-sample1.html",
-    "title": "ICA Sample 1",
+    "objectID": "src/ica/03-adv-ggplot-notes.html",
+    "href": "src/ica/03-adv-ggplot-notes.html",
+    "title": "3 Adv Data Viz",
     "section": "",
-    "text": "Add content here",
+    "text": "🧩 Learning Goals\nBy the end of this lesson, you should be able to:",
     "crumbs": [
       "In-Class Activities",
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>ICA Sample 1</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>3 Adv Data Viz</span>"
     ]
   },
   {
-    "objectID": "src/ica/ica-sample2.html",
-    "href": "src/ica/ica-sample2.html",
-    "title": "ICA Sample 2",
+    "objectID": "src/ica/03-adv-ggplot-notes.html#learning-goals",
+    "href": "src/ica/03-adv-ggplot-notes.html#learning-goals",
+    "title": "3 Adv Data Viz",
     "section": "",
-    "text": "Add content here",
+    "text": "Navigate ggplot2 reference page to find needed functions for a desired visualization\nNavigate the different sections of a function help page to construct desired plot features, in particular,\n\nNavigate the Usage section to identify arguments that must be set\nNavigate the Arguments section to understand how arguments work\nNavigate the Aesthetics section to learn how plot appearance can be controlled\nNavigate the Examples section for some usage examples\n\n\nIdentify when to use different data arguments within ggplot() and geom_() layers",
     "crumbs": [
       "In-Class Activities",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>ICA Sample 2</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>3 Adv Data Viz</span>"
+    ]
+  },
+  {
+    "objectID": "src/ica/03-adv-ggplot-notes.html#introduction",
+    "href": "src/ica/03-adv-ggplot-notes.html#introduction",
+    "title": "3 Adv Data Viz",
+    "section": "Introduction 1\n",
+    "text": "Introduction 1\n\nIn this lesson, we are going to recreate NYTimes 2015 Temperature Visualization (html) using data from San Francisco (SFO) in 2011.\n\n\nScreenshot of NYTimes 2015 Temperature Visualization",
+    "crumbs": [
+      "In-Class Activities",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>3 Adv Data Viz</span>"
+    ]
+  },
+  {
+    "objectID": "src/ica/03-adv-ggplot-notes.html#reading-data",
+    "href": "src/ica/03-adv-ggplot-notes.html#reading-data",
+    "title": "3 Adv Data Viz",
+    "section": "Reading Data",
+    "text": "Reading Data\nRun the code chunk below to load the tidyverse package and read in the San Francisco weather data.\n\nCodelibrary(tidyverse)\nweather &lt;- read_csv(\"https://mac-stat.github.io/data/sfo_weather.csv\")",
+    "crumbs": [
+      "In-Class Activities",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>3 Adv Data Viz</span>"
+    ]
+  },
+  {
+    "objectID": "src/ica/03-adv-ggplot-notes.html#understanding-data",
+    "href": "src/ica/03-adv-ggplot-notes.html#understanding-data",
+    "title": "3 Adv Data Viz",
+    "section": "Understanding Data",
+    "text": "Understanding Data\nBelow is the codebook of the data. Familiarize yourself with the meaning of each variable. Use the codebook as a reference when using the data.\n\n\nMonth: Month of the year (1-12)\n\nDay: Day within the month (1-31)\n\nLow/High: Low/high temperature this day\n\nNormalLow/NormalHigh: Typical low/high temperature for this day of the year\n\nRecordLow/RecordHigh: Record low/high temperature for this day of the year\n\nLowYr/HighYr: Year in which the record low/high was observed\n\nPrecip: Amount of precipitation (inches) this day\n\nRecordPrecip: Record amount of precipitation for this day of the year\n\nPrecipYr: Year in which the record precipitation was observed\n\ndate: The actual date in 2011 for this day in YYYY-MM-DD format\n\ndateInYear: What day of the year is it? (1-365)\n\nRecord: Logical (TRUE/FALSE) indicating whether this day had a high temperature record\n\nRecordText: Text that displays the record high for this day (\"Record high: ##\")\n\nRecordP: Logical (TRUE/FALSE) indicating whether this day had a precipitation record\n\nCulmPrec: Cumulative precipitation for the month up to this day",
+    "crumbs": [
+      "In-Class Activities",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>3 Adv Data Viz</span>"
+    ]
+  },
+  {
+    "objectID": "src/ica/03-adv-ggplot-notes.html#exercise-1",
+    "href": "src/ica/03-adv-ggplot-notes.html#exercise-1",
+    "title": "3 Adv Data Viz",
+    "section": "Exercise 1",
+    "text": "Exercise 1\nExamine the NYTimes 2015 Temperature Visualization (html) then answer the following questions.\nData Storytelling\n\nRelate the intro paragraph: “Scientists declared that 2015 was Earth’s hottest year on record…” to the design of the visualization. In particular, based on the intro paragraph,\n\nWhat key message/claim does NYTimes want readers to be able to explore?\nHow did this goal inform what information is displayed in the visualization?\n\n\n\nAesthetic Mapping\n\nWhat specific variables (from the data codebook) underlie the visualization?\nHow do these variables map to aesthetics of the visual elements, eg, position, size, shape, and color of glyphs?",
+    "crumbs": [
+      "In-Class Activities",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>3 Adv Data Viz</span>"
+    ]
+  },
+  {
+    "objectID": "src/ica/03-adv-ggplot-notes.html#exercise-2",
+    "href": "src/ica/03-adv-ggplot-notes.html#exercise-2",
+    "title": "3 Adv Data Viz",
+    "section": "Exercise 2",
+    "text": "Exercise 2\nNavigate the Geoms section of the ggplot2 reference page to find a geom that corresponds to the visual elements in the temperature plot. Using both the small thumbnail visuals on the right and the names of the geom’s, brainstorm some possibilities for geom’s you might use to recreate the temperature visualization.\n\n\n\n\n\n\nNavigating Documentation / Reference Pages\n\n\n\nYou need to navigate the geoms further by opening up their reference pages to understand if a particular geom is suitable for our task. Let’s look at the geom_point documentation page to learn how to read a documentation page..\nThe Usage section shows all of the possible inputs (arguments) to the geom. These are all of the ways that a geom can be customized. Just looking at the argument names can help give a hint as to what arguments might fit our needs.\nThe Arguments section, on the other hand, explains in detail what each argument does and the possible values the argument can take. The mapping, data, and ... arguments will be the most commonly used by far.\n\n\nmapping is the argument that is being used when we specify which variables should link or map to the plot aesthetics (the code inside aes()).\n\ndata is the argument where we specify the dataset containing the variables that the geom is using.\n\n... is used for fixed aesthetics (ones that don’t correspond to a variable), eg, to set the color of all points, we use color = \"red\" and to set the size of all points, we use size = 3.\n\nThe Aesthetics section of a geom documentation page gives information on how the visual elements of the geom correspond to data. For example, the geom_point documentation page shows that x and y aesthetics are available. It also shows some new aesthetics like stroke.\n\n\n\n\n\n\n\n\ndata Argument\n\n\n\nPreviously you have used one dataset per plot by specifying that as the first argument of ggplot(). However, multiple data sets can be passed into ggplot as shown in the example below.\n\nCodedata(diamonds)\n\ndiamonds_avg_price &lt;- diamonds |&gt;\n  group_by(carat) |&gt;\n  summarize(avg_price = mean(price)) |&gt;\n  arrange(carat)\ndiamonds_avg_price &lt;- diamonds_avg_price[seq(1, nrow(diamonds_avg_price), 3), ]\n\nggplot(diamonds, aes(x = carat, y = price)) +\n  geom_point() +\n  geom_point(\n    data = diamonds_avg_price,\n    aes(x = carat, y = avg_price),\n    color = \"deepskyblue\",\n    size = 3\n  )\n\n\n\n\n\n\n\n\n\nLook at the geom_linerange documentation page and start off your temperature visualization with the record lows and highs. Your plot should look like the one below. The hex code of the used light tan color is #ECEBE3.\n\n\nSFO Weather Records in 2011\n\n\nCodeggplot(aes(x = dateInYear), data = weather) +\n  geom_ribbon(aes(ymin = RecordLow, ymax = RecordHigh), fill = \"#ECEBE3\") +\n    theme_classic()\n\n\n\n\n\n\n\n\n\n\n\n\n\nKeyboard Shortcuts\n\n\n\nAs you work on this plot, try to use some new keyboard shortcuts. Focus on the following:\n\nInsert code chunk: Ctrl+Alt+I (Windows). Option+Command+I (Mac).\nRun current code chunk: Ctrl+Shift+Enter (Windows). Command+Shift+Return (Mac).\nRun current line/currently selected lines: Ctrl+Enter (Windows). Command+Return (Mac).",
+    "crumbs": [
+      "In-Class Activities",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>3 Adv Data Viz</span>"
+    ]
+  },
+  {
+    "objectID": "src/ica/03-adv-ggplot-notes.html#exercise-3",
+    "href": "src/ica/03-adv-ggplot-notes.html#exercise-3",
+    "title": "3 Adv Data Viz",
+    "section": "Exercise 3",
+    "text": "Exercise 3\nIn your visualization, also display the usual temperatures (NormalLow and NormalHigh) and actual 2011 temperatures (Low and High). Your plot should look like the one below. The hex code of the color used for the usual temperatures is \"#C8B8BA\" and for the color used for actual temperatures is \"#A90248\".\n\n\nSFO observed, Average, and Record Daily Temperatures in 2011\n\n\nCodeggplot(aes(x = dateInYear), data = weather) +\n  geom_ribbon(aes(ymin = RecordLow, ymax = RecordHigh), fill = \"#ECEBE3\") +\n  geom_ribbon(aes(ymin = NormalLow, ymax = NormalHigh), fill = \"#C8B8BA\")+\n  geom_ribbon(aes(ymin = Low, ymax = High), fill = \"#A90248\")+\n  theme_classic()\n\n\n\n\n\n\n\n\n\n\n\n\n\nFiner Control\n\n\n\nIf you’d like finer control of the width of these lines/rectangles, check out the geom_rect documentation page.",
+    "crumbs": [
+      "In-Class Activities",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>3 Adv Data Viz</span>"
+    ]
+  },
+  {
+    "objectID": "src/ica/03-adv-ggplot-notes.html#exercise-4",
+    "href": "src/ica/03-adv-ggplot-notes.html#exercise-4",
+    "title": "3 Adv Data Viz",
+    "section": "Exercise 4",
+    "text": "Exercise 4\nRecreate the visual demarcations of the months by adding vertical lines separating the months. Brainstorm how we might draw those vertical lines. What geom might we use? What subset of the data might we use in that geom layer to draw lines only at the month divisions?\n\nCodeweather &lt;- weather %&gt;%\n  mutate(Month = month(date),\n         Day = day(date)) %&gt;%\n  mutate(month_day = paste(Month, Day, sep = \"-\"))\n\nggplot(aes(x = date), data = weather) +\n  geom_ribbon(aes(ymin = RecordLow, ymax = RecordHigh), fill = \"#ECEBE3\") +\n  geom_ribbon(aes(ymin = NormalLow, ymax = NormalHigh), fill = \"#C8B8BA\")+\n  geom_ribbon(aes(ymin = Low, ymax = High), fill = \"#A90248\")+\n  scale_x_date(date_labels = \"%b\", breaks = seq(\n    from = as.Date(\"2011-01-15\"),\n    to = as.Date(\"2011-12-15\"),\n    by = \"1 month\"\n  )\n  ) +\n  geom_vline(xintercept = as.Date(\"2011-01-01\"), color = \"grey\", linetype = \"dashed\") +\n  geom_vline(xintercept = as.Date(\"2011-02-01\"), color = \"grey\", linetype = \"dashed\") +\n  geom_vline(xintercept = as.Date(\"2011-03-01\"), color = \"grey\", linetype = \"dashed\") +\n  geom_vline(xintercept = as.Date(\"2011-04-01\"), color = \"grey\", linetype = \"dashed\") +\n  geom_vline(xintercept = as.Date(\"2011-05-01\"), color = \"grey\", linetype = \"dashed\") +\n  geom_vline(xintercept = as.Date(\"2011-06-01\"), color = \"grey\", linetype = \"dashed\") +\n  geom_vline(xintercept = as.Date(\"2011-07-01\"), color = \"grey\", linetype = \"dashed\") +\n  geom_vline(xintercept = as.Date(\"2011-08-01\"), color = \"grey\", linetype = \"dashed\") +\n  geom_vline(xintercept = as.Date(\"2011-09-01\"), color = \"grey\", linetype = \"dashed\") +\n  geom_vline(xintercept = as.Date(\"2011-10-01\"), color = \"grey\", linetype = \"dashed\") +\n  geom_vline(xintercept = as.Date(\"2011-11-01\"), color = \"grey\", linetype = \"dashed\") +\n  geom_vline(xintercept = as.Date(\"2011-12-01\"), color = \"grey\", linetype = \"dashed\") +\n  theme_classic()",
+    "crumbs": [
+      "In-Class Activities",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>3 Adv Data Viz</span>"
+    ]
+  },
+  {
+    "objectID": "src/ica/03-adv-ggplot-notes.html#exercise-5",
+    "href": "src/ica/03-adv-ggplot-notes.html#exercise-5",
+    "title": "3 Adv Data Viz",
+    "section": "Exercise 5",
+    "text": "Exercise 5\nChange the x-axis labels so that the month names display in the center of each month’s slice of the plot.\n\n\n\n\n\n\nMonth Names\n\n\n\nR has built-in variables called month.abb and month.name that contain abbreviated and full month names.\n\n\nTry to figuring out this new challenge using search engines and LLMs:\n\nSearch Engines. Use Google to search for possible solutions using the jargon that is most likely to return the most relevant results. Record search queries and your thought process in selecting which search results to look at first.\nLLMs. Use ChatGPT or Gemini with prompts that will most efficiently get you the desired results. Record the chat prompts used and output given. Evaluate the output. Do you fully understand the code generated? How can you tell that the generated code is correct?",
+    "crumbs": [
+      "In-Class Activities",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>3 Adv Data Viz</span>"
+    ]
+  },
+  {
+    "objectID": "src/ica/03-adv-ggplot-notes.html#exercise-6",
+    "href": "src/ica/03-adv-ggplot-notes.html#exercise-6",
+    "title": "3 Adv Data Viz",
+    "section": "Exercise 6",
+    "text": "Exercise 6\nCreate a precipitation plot that looks like the following. Note that\n\nThe triangles point to precipitation records–refer to the data codebook above for the RecordP variable.\nThe numbers on the plot indicate the total precipitation for the month–search the hjust and vjust options to adjust the alignment of the numbers.\nThe blue and tan colors hex codes are \"#32a3d8\" and \"#ebeae2\", respectively.\n\n\n\nSFO Precipitation in 2011\n\n\nCodeweather_culmprec &lt;-weather %&gt;%\n  filter(dateInYear %in% c(31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334, 365))\n\nweather_p &lt;- weather %&gt;%\n  filter(RecordP == TRUE)\n\nweather %&gt;%\n  ggplot(aes(x = dateInYear, y = CulmPrec)) +\n  geom_area(fill = \"#ebeae2\", color = \"#32a3d8\")+\n  geom_text(data = weather_culmprec, aes(label = CulmPrec), vjust = -.5, size = 3)+\n  geom_point(data = weather_p, aes(label = RecordP), shape = 17) +\n  theme_classic()",
+    "crumbs": [
+      "In-Class Activities",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>3 Adv Data Viz</span>"
+    ]
+  },
+  {
+    "objectID": "src/ica/03-adv-ggplot-notes.html#done",
+    "href": "src/ica/03-adv-ggplot-notes.html#done",
+    "title": "3 Adv Data Viz",
+    "section": "Done!",
+    "text": "Done!\n\nCheck the ICA Instructions for how to (a) push your code to GitHub and (b) update your portfolio website",
+    "crumbs": [
+      "In-Class Activities",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>3 Adv Data Viz</span>"
+    ]
+  },
+  {
+    "objectID": "src/ica/03-adv-ggplot-notes.html#footnotes",
+    "href": "src/ica/03-adv-ggplot-notes.html#footnotes",
+    "title": "3 Adv Data Viz",
+    "section": "",
+    "text": "The exercise in this lesson are inspired by an assignment from the Concepts in Computing with Data course at UC Berkeley taught by Dr. Deborah Nolan.↩︎",
+    "crumbs": [
+      "In-Class Activities",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>3 Adv Data Viz</span>"
+    ]
+  },
+  {
+    "objectID": "src/ica/18-interactive-viz-notes.html",
+    "href": "src/ica/18-interactive-viz-notes.html",
+    "title": "18 Interactive Viz",
+    "section": "",
+    "text": "🧩 Learning Goals\nBy the end of this lesson, you should be able to: - Evaluate when it would be useful to use an interactive visualization or an animation and when it might not be necessary - Construct interactive visualizations and animations with plotly - Build a Shiny app that enables user to adjust visualization choices and explore linked visualizations",
+    "crumbs": [
+      "In-Class Activities",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>18 Interactive Viz</span>"
+    ]
+  },
+  {
+    "objectID": "src/ica/18-interactive-viz-notes.html#background",
+    "href": "src/ica/18-interactive-viz-notes.html#background",
+    "title": "18 Interactive Viz",
+    "section": "Background",
+    "text": "Background\nThe goal of interactivity should be to allow users to explore data more quickly and/or more deeply than is possible with static data representations.\nPros\n\nUsers can click, hover, zoom, and pan to get more detailed information\nUsers can get quickly and deeply explore the data via linked data representations\nAllows guided exploration of results without needing to share data\nCons\n\nTakes longer to design\nAnalyst might spend longer exploring an interactive visualization than a series of static visualizations\nPoor design could result in information overload\nFeatures\nCommon features of interactive visualizations1 include:\n\nChanging data representation: providing options to change the type of plot displayed (e.g., allowing users to visualize temperature patterns over a month vs. over years)\nFocusing and getting details: mousing over part of a visualization to see an exact data value, zooming and panning\nData transformation: e.g., changing color scale, switching to/from log scale\nData selection and filtering: highlighting and brushing regions of a plot to focus the selected points; reordering and filtering data show in tables\nFinding corresponding information in multiple views: linked views that update dynamically based on interaction in another plot (often by zooming, panning, or selecting certain points)",
+    "crumbs": [
+      "In-Class Activities",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>18 Interactive Viz</span>"
+    ]
+  },
+  {
+    "objectID": "src/ica/18-interactive-viz-notes.html#motivating-example",
+    "href": "src/ica/18-interactive-viz-notes.html#motivating-example",
+    "title": "18 Interactive Viz",
+    "section": "Motivating Example",
+    "text": "Motivating Example\nKyle Walker’s neighborhood diversity interactive application allows exploration of neighborhood diversity across time and space. It showcases major packages and features of interactive visualization. We will recreate the core parts of this app from scratch.\nApp Exploration\nTo avoid overloading the author’s Shiny server, only one person from each table group should open the app and navigate around. Then, as a group\n\nCatalog the app’s layout and interactivity features and make note of where user inputs are located and how different parts of the app respond to user input.\nEvaluate the design of this app.\n\nIs the interactivity in this app needed, ie, does the interactivity actually help you gain more insight and perhaps more quickly than a series of static visualizations?\nWhat explorations/comparisons are you curious to explore that are not enabled well by the app?\n\n\n\nIn case the app doesn’t load, use the following screenshots:",
+    "crumbs": [
+      "In-Class Activities",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>18 Interactive Viz</span>"
+    ]
+  },
+  {
+    "objectID": "src/ica/18-interactive-viz-notes.html#shiny",
+    "href": "src/ica/18-interactive-viz-notes.html#shiny",
+    "title": "18 Interactive Viz",
+    "section": "Shiny",
+    "text": "Shiny\nShiny facilitates building interactive web applications using R code without needing extensive knowledge of web coding technologies such as HTML, CSS, and Javascript.\nSetup\nThe neighborhood diversity app was made with the Shiny toolkit available in the shiny R package.\nDownload and leave open the Shiny cheatsheet.\nLet’s look at an example app together. RStudio will create a template app when you go to File –&gt; New File –&gt; Shiny Web App then enter/select the following values:\n\nfor the Application name, type neighborhood_diversity.\nfor Application type, leave the default option Single file (app.R)\n\n\nThis creates a folder in your current directory called neighborhood_diversity with a single R code file called app.R.\nClick the Run App button in the top right of the source code editor to view the app in action.\nThe app.R has three components:\n\na user interface object (ui): to set up the layout of the app\na server function (server): to define how the app will react to user input\na call to the shinyApp() function: to launch the app using the UI object (ui) and server function (server) created above\nGetting Acquainted\nSetup part 1: Load required packages at the top of app.R: shiny, tidyverse, sf, and plotly.\nSetup part 2: Data download and folder setup\nSave the two files, diverse_data_by_dist.rds and diverse_data_by_year.csv, with the folder setup below inside your portfolio repository.\n\n📂 neighborhood_diversity\n\napp.R\n📂 data\n\ndiverse_data_by_dist.rds\ndiverse_data_by_year.csv\n\n\n\n\n\nSetup part 3: Below your library() calls, add the following commands to read in the data:\n\nCodedata_by_dist &lt;- read_rds(\"../../neighborhood_diversity/data/diverse_data_by_dist.rds\")\ndata_by_year &lt;- read_csv(\"../../neighborhood_diversity/data/diverse_data_by_year.csv\")\nmetro_names &lt;- data_by_dist |&gt; pull(metro_name) |&gt; unique()\n\nmetro_names\n\n\nGetting acquainted with the app and underlying code: Take a few minutes to explore the code:\n\n\nui section. How are functions nested inside each other, and how does this seem to relate to the visual appearance of the app?\nWhat names/labels in the User Interface (ui) part of the app seem to be shared with the server part of the app?\nData Codebook\nThe data_by_dist dataset is an sf object (cases = census tracts) with the following variables:\n\n\nmetro_id: numeric ID for the city\n\nmetro_name: city name\n\ngeometry: information about the spatial geometry for the tract\n\ntract_id: numeric census tract ID\n\ndistmiles: distance in miles from this tract to city hall\n\nentropy: a measure of the diversity of a census tract (a diversity “score”)\nRace variables (each of these is the number of people)\n\n\naian: American Indian\nasian\nblack\nhispanic\ntwo_or_more\nwhite\n\n\n\nThe data_by_year dataset has a subset of the above variables as well as a year variable.\n\n*Input() functions\nWhat do these do? The *Input() functions collect inputs from the user.\nWhere are these functions on the cheatsheet? Right-hand side of the first page\nWhere do these go in the app?\n\nAll *Input() functions go in the ui part of the app.\nPay careful attention to the nesting of the functions in the ui section. For example, in a sidebarLayout(), these *Input() functions should go in the sidebarPanel() (as opposed to the mainPanel()).\nSeparate multiple *Input() functions with commas.\n\nHow do the function arguments work? In all the *Input() functions, the first two arguments are the same:\n\n\ninputId is how you will refer to this input in the server portion later. You can call this anything you want, but make this ID describe the information that the user is providing.\n\nlabel is how this will actually be labeled in your UI (what text shows up in the app).\n\nEach function has some additional arguments depending what you want to do.\nYour Turn\nAdd the following two user inputs to your app:\n\nDropdown to select the city name\nSlider to choose the span parameter for the scatterplot smooth\n\nThis parameter varies from 0 to 1. Lower values result in a wiggly smoothing line, and higher values result in a smoother line.\n\n\n\nUse the Shiny cheatsheet to find the *Input() functions that correspond to the two inputs above. Add them to the appropriate place within the ui object. Use commas to separate the inputs.\n\n\n\n\n\n\nParentheses Pandemonium\n\n\n\nCarefully formatting your code will be crucial here! With shiny UIs, it is very easy to lose or mismatch parentheses, which leads to frustrating errors. My suggestion is to place parentheses as follow:\nsliderInput(\n    argument1 = value1,\n    argument2 = value2,\n    argument3 = value3\n)\nNote how the left parenthesis is on the same line as the function, and the right parenthesis is on its own line and left-aligned with the start of the function name.\nTip: In RStudio, you can place your cursor next to any parenthesis to highlight the matching parenthesis (if there is one).\n\n\nYou will have to look at the documentation for the *Input() functions to know how to use arguments beyond inputId and label. To view this documentation, type ?function_name in the Console.\nTo get the collection of city names from the data_by_dist dataset, you can use the following:\nmetro_names &lt;- data_by_dist |&gt; pull(metro_name) |&gt; unique()\nPut this metro_names code just beneath where you read in the data.\nOnce you finish, run your app. Make sure you can select and move things around as expected. You won’t see any plots yet—we’ll work on those in the next exercises.\n\n*Output() functions\nWhat do these do? *Output() functions in the ui portion work with the render*() functions in the server portion to to add R output (like plots and tables) to the UI.\nWhere are these functions on the cheatsheet? Bottom-center of the first page\nWhere do these go in the app?\n\nAll *Output() functions go in the ui part of the app.\nPay careful attention to the nesting of the functions in the ui section. For example, in a sidebarLayout(), these *Output() functions should go in the mainPanel() (as opposed to the sidebarPanel()).\nSeparate multiple *Output() functions with commas.\n\nHow do the function arguments work? In all the *Output() functions, the first argument is the same:\n\n\noutputId works just like inputId for *Input() functions. This is how you will refer to this output in the server portion later. You can call this anything you want, but make this ID describe the output being created.\n\nYour Turn\nAdd 3 outputs to the ui that will eventually be:\n\nA scatterplot of diversity score (entropy) versus distance to city hall (distmiles) with a smoothing line (smoothness controlled by the span parameter on your slider input)\nA map of diversity scores across the counties in the selected city\nA bar chart of the overall race distribution in the selected city (i.e., the total number of people in each race category in the city)\n\nFor now, don’t worry that the layout of the plots exactly matches the original neighborhood diversity app. (You will update this in your homework.)\nRun the app with the output. Notice that nothing really changes. Think of the outputs you just placed as placeholders—the app knows there will be a plot in the UI, but the details of what the plots will look like and the R code to create them will be in the server portion. Let’s talk about that now!\n\nrender*() functions\nWhat do these do? The render*() functions use R code (i.e., standard ggplot code) to communicate with (“listen to”) the user inputs to create the desired output.\nWhere are these functions on the cheatsheet? Bottom-center of the first page. The render*() function you use will depend on the desired output. The bottom center of the cheatsheet shows how *Output() and render*() functions connect.\nWhere do these go in the app? The render*() functions go in the server function of the app.\nIn general, the server section of code will look something like this:\n\nCode# Suppose the following are somewhere in the UI part\n\n\nnumericInput(inputId = \"min_year\")\nnumericInput(inputId = \"max_year\")\nplotOutput(outputId = \"plot_over_years\")\n\nserver &lt;- function(input, output) {\n    output$plot_over_years &lt;- renderPlot({ # Note the curly braces that enclose the R code below\n        ggplot(...) +\n            scale_x_continuous(limits = c(input$min_year, input$max_year))\n    })\n\n#server function in shiny app for neighborhood diversity\nserver &lt;- function(input, output) {\n  output$distPlot &lt;- renderPlotly({ # Note the curly braces that enclose the R code below\n    p &lt;- data_by_dist %&gt;%\n    st_drop_geometry() %&gt;%\n    filter(metro_name == input$selected_city) %&gt;%\n      ggplot(aes(x = distmiles, y = entropy)) +\n      geom_point() +\n      geom_smooth(method =\"loess\", span = input$selected_span, color = \"red\") +\n      theme_minimal() +\n      labs(x = \"Diversity Score\", y = \"Distance in Miles from City Hall\")\n\n   ggplotly(p)\n  })\n}\n\n\nYour Turn\nWhile our main goals is to make 3 plots, you will just make one of them in this exercise.\nAdd a renderPlot() functions inside the server portion of the code to make the scatterplot of diversity score (entropy) versus distance to city hall (distmiles) with a smoothing line. Use the data_by_dist dataset. Reference the inputs you’ve already created in previous exercises by using filter() and ggplot() to render the desired interactive plot.\nNote: the geom_??? used to create the smoothing line has a span parameter. (Check out the documentation for that geom by entering ?geom_??? in the Console.)\nRun the app and check that the scatterplot displays and reacts to the chosen city and span parameter.\nAs part of Homework 9, you will finish this Shiny app.",
+    "crumbs": [
+      "In-Class Activities",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>18 Interactive Viz</span>"
+    ]
+  },
+  {
+    "objectID": "src/ica/18-interactive-viz-notes.html#plotly-package",
+    "href": "src/ica/18-interactive-viz-notes.html#plotly-package",
+    "title": "18 Interactive Viz",
+    "section": "\nplotly package",
+    "text": "plotly package\nThe plotly package provides tools for creating interactive web graphics and is a nice complement to Shiny.\nGetting Started\n\nCodelibrary(plotly)\n\n\nA wonderful feature of plotly is that an interactive graphic can be constructed by taking a regular ggplot graph and putting it inside the ggplotly() function:\n\nCodedata(babynames, package = \"babynames\")\nbnames &lt;- babynames |&gt; filter(name %in% c(\"Brianna\", \"Briana\", \"Breanna\"))\n\np &lt;- ggplot(bnames, aes(x = year, y = prop, color = sex, linetype = name)) +\n    geom_line() +\n    theme_classic() +\n    labs(x = \"Year\", y = \"Proportion of names\", color = \"Gender\", linetype = \"Name\")\n\nggplotly(p)\n\n\n\n\n\nThe plotly package can also create animations by incorporating frame and ids aesthetics.\n\n\nframe = year: This makes the frame of the animation correspond to year–so the animation shows changes across time (years).\n\nids = country: This ensures smooth transitions between objects with the same id (which helps facilitate object constancy throughout the animation). Here, each point is a country, so this makes the animation transition smoothly from year to year for a given country. (For more information, see here.)\n\n\nCodedata(gapminder, package = \"gapminder\")\np &lt;- ggplot(gapminder, aes(x = gdpPercap, y = lifeExp, color = continent, size = pop)) +\n    geom_point(aes(frame = year, ids = country)) +\n    scale_x_log10() +\n    labs(x = \"GDP per capita\", y = \"Life expectancy (years)\", color = \"Continent\", size = \"Population\") +\n    theme_classic()\nggplotly(p)\n\n\n\n\n\nYour Turn\nIn a web application, having plots be plotly objects is just nice by default because of the great mouseover, zoom, and pan features.\nInside app.R, change plotOutput to plotlyOutput and renderPlot to renderPlotly for the scatterplot and the barplot. Make sure to add calls to ggplotly() too.\nAs part of Homework 9, you will incorporate advanced plotly into the Shiny App.",
+    "crumbs": [
+      "In-Class Activities",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>18 Interactive Viz</span>"
+    ]
+  },
+  {
+    "objectID": "src/ica/18-interactive-viz-notes.html#publishing-shiny-apps",
+    "href": "src/ica/18-interactive-viz-notes.html#publishing-shiny-apps",
+    "title": "18 Interactive Viz",
+    "section": "Publishing Shiny apps",
+    "text": "Publishing Shiny apps\nTo share your work publicly, you’ll need to publish your Shiny app.\nShinyapps.io\nThe steps below take you through publishing via shinyapps.io.\nThe first step is to install and load the rsconnect library.\nYou will be able to share your app with any individual with internet access unless you make it password-protected.\n\nRegister for an account at https://www.shinyapps.io/admin/#/signup.\nOnce you are logged in to shinyapps.io, go to Account –&gt; Tokens and click the Show button.\nCopy and paste the code into the Console in R. This will connect your account to RStudio.\nWhen you create an app, save it as app.R in a folder. It MUST be named app.R. In the app.R file, load all packages you use in your code. Try not to load extra packages—this can make publishing take longer and slow down the app for users. Any data that your app uses needs to be read in within the app. If the data are local to your computer, you need to have the data in the same folder as the app.\nRun the app. In the upper right-hand corner, there is an option to publish the app. Click on that. It will take a bit of time to do it the first time. Once published, you can go to the app via the webpage provided.\n\nThe instructions are set out in more detail here.",
+    "crumbs": [
+      "In-Class Activities",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>18 Interactive Viz</span>"
+    ]
+  },
+  {
+    "objectID": "src/ica/18-interactive-viz-notes.html#resources",
+    "href": "src/ica/18-interactive-viz-notes.html#resources",
+    "title": "18 Interactive Viz",
+    "section": "Resources",
+    "text": "Resources\n\nCreating dashboard layouts\n\nThe shinydashboard package provides a nice way to style your app like a dashboard.\nThe flexdashboard package provides alternate syntax within an RMarkdown context to creating dashboards.\n\n\nTheory of dashboard design: principles for building useful dashboards\n\nPaper on dashboard design patterns\nDashboard Design Patterns\nDashboard design principles and best practice\n\n\nDig deeper with shiny and plotly\n\nCurated set of Shiny resources\n\nGetting started with Shiny: A set of tutorials for learning more about interactivity\n\nOnline book about plotly &lt;– retired 😢\n\n\nExamples of Shiny apps to inspire your own\n\nRepository of Shiny app examples\nMetropolitan Council’s COVID wastewater monitor Shiny app",
+    "crumbs": [
+      "In-Class Activities",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>18 Interactive Viz</span>"
+    ]
+  },
+  {
+    "objectID": "src/ica/18-interactive-viz-notes.html#done",
+    "href": "src/ica/18-interactive-viz-notes.html#done",
+    "title": "18 Interactive Viz",
+    "section": "Done!",
+    "text": "Done!\n\nCheck the ICA Instructions for how to (a) push your code to GitHub and (b) update your portfolio website",
+    "crumbs": [
+      "In-Class Activities",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>18 Interactive Viz</span>"
+    ]
+  },
+  {
+    "objectID": "src/ica/18-interactive-viz-notes.html#footnotes",
+    "href": "src/ica/18-interactive-viz-notes.html#footnotes",
+    "title": "18 Interactive Viz",
+    "section": "",
+    "text": "Andrienko, N., Andrienko, G., Fuchs, G., Slingsby, A., Turkay, C., Wrobel, S. (2020). Principles of Interactive Visualisation. In: Visual Analytics for Data Scientists. Springer, Cham. https://doi.org/10.1007/978-3-030-56146-8_3↩︎",
+    "crumbs": [
+      "In-Class Activities",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>18 Interactive Viz</span>"
     ]
   },
   {
