@@ -465,6 +465,9 @@ My_own_sum(c(1,2,3))
   - Example below:
   
 ```{r eval = FALSE}
+library(stringr) # For str_c
+library(tibble) # For tibble
+
 fit_mod_and_extract <- function(data, yvar, preds, pred_of_interest) {
     # Use str_c to create a string (formula_str) that looks like "yvar ~ pred1 + pred2"
     # Look at the documentation for a helpful argument
@@ -486,9 +489,6 @@ fit_mod_and_extract <- function(data, yvar, preds, pred_of_interest) {
         ci_upper = ci[pred_of_interest, "97.5 %"]
     )
 }
-
-library(stringr) # For str_c
-library(tibble) # For tibble
 
 fit_mod_and_extract(data = mtcars, yvar = "mpg", preds = c("hp", "wt"), pred_of_interest = "hp")
 ```
