@@ -74,6 +74,8 @@ book:
       - src/ica/03-adv-ggplot-notes.qmd
       - src/ica/04-adv-maps-1-notes.qmd
       - src/ica/06-wrangling-1-notes.qmd
+      - src/ica/07-wrangling-2-notes.qmd
+      - src/ica/11-iteration-1-notes.qmd
       - src/ica/18-interactive-viz-notes.qmd
       - src/ica/ica_shiny_app.qmd
 
