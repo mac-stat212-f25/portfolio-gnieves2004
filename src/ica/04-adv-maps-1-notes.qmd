@@ -2,12 +2,28 @@
 title: "4 Advanced Spatial Viz P1"
 ---
 
-```{r doc_setup, echo=FALSE, message=FALSE}
+```{r doc_setup}
 #| echo: false
 #| message: false
 
 library(tidyverse)
 knitr::opts_chunk$set(fig.align = "center", warning = FALSE, message = FALSE)
+
+# install.packages(c("sf","elevatr","terra","stars","tidycensus"))
+# install.packages('devtools')
+# devtools::install_github("ropensci/USAboundaries")
+# install.packages("USAboundariesData", repos = "https://ropensci.r-universe.dev", type = "source")
+
+
+library(tidyverse)
+library(sf) # tools for working with spatial vector data (GIS functionality, mapping)
+library(elevatr) # access to raster elevation maps
+library(terra)
+library(stars)
+library(tidycensus) # spatial data for the US with census information
+library(USAboundariesData) # access to boundaries for US states, counties, zip codes, and congressional districts 
+library(plotly)
+library(babynames)
 ```
 
 
@@ -53,25 +69,6 @@ portfolio
 ```
 
 First load required packages.
-
-```{r setup}
-#Install these packages first
-
-# install.packages(c("sf","elevatr","terra","stars","tidycensus"))
-# install.packages('devtools')
-# devtools::install_github("ropensci/USAboundaries")
-# install.packages("USAboundariesData", repos = "https://ropensci.r-universe.dev", type = "source")
-
-
-library(tidyverse)
-library(sf) # tools for working with spatial vector data (GIS functionality, mapping)
-library(elevatr) # access to raster elevation maps
-library(terra)
-library(stars)
-library(tidycensus) # spatial data for the US with census information
-library(USAboundaries) # access to boundaries for US states, counties, zip codes, and congressional districts 
-
-```
 
 
 ## Spatial Data in R
