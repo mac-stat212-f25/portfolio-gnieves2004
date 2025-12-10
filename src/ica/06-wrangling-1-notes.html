@@ -59,7 +59,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../src/ica/18-interactive-viz-notes.html" rel="next">
+<link href="../../src/ica/07-wrangling-2-notes.html" rel="next">
 <link href="../../src/ica/04-adv-maps-1-notes.html" rel="prev">
 <script src="../../site_libs/cookie-consent/cookie-consent.js"></script>
 <link href="../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
@@ -220,6 +220,26 @@ cookieconsent.run({
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../src/ica/06-wrangling-1-notes.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">6 Adv Data wrangling P1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/ica/07-wrangling-2-notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">7 Adv Data wrangling P2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/ica/08-missing-data-notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">8 Missing Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/ica/09-functions-notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">9 Functions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/ica/11-iteration-1-notes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">11 Loops+Iter P1</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -623,9 +643,9 @@ Examples
 [277] 20730 20731 20732 20733 20734 20735 20736 20737 20738 20739 20740 20741
 [289] 20742 20743 20744 20745 20746 20747 20748 20749 20750 20751 20752 20753
 [301] 20754 20755 20756 20757 20758 20759 20760 20761 20762 20763 20764 20765
-[313] 20766 20767 20403 20404 20405 20406 20407 20408 20409 20410 20411 20412
-[325] 20413 20414 20415 20416 20417 20418 20419 20420 20421 20422 20423 20424
-[337] 20425 20426 20427 20428 20429 20430 20431 20432 20433 20434 20435 20436
+[313] 20766 20767 20768 20769 20770 20771 20772 20773 20774 20775 20776 20777
+[325] 20778 20779 20780 20781 20782 20783 20784 20785 20786 20787 20788 20789
+[337] 20790 20791 20792 20793 20794 20795 20796 20432 20433 20434 20435 20436
 [349] 20437 20438 20439 20440 20441 20442 20443 20444 20445 20446 20447 20448
 [361] 20449 20450 20451 20452 20453 20454</code></pre>
 </div>
@@ -693,13 +713,13 @@ Examples
 [296] "2026-10-23" "2026-10-24" "2026-10-25" "2026-10-26" "2026-10-27"
 [301] "2026-10-28" "2026-10-29" "2026-10-30" "2026-10-31" "2026-11-01"
 [306] "2026-11-02" "2026-11-03" "2026-11-04" "2026-11-05" "2026-11-06"
-[311] "2026-11-07" "2026-11-08" "2026-11-09" "2026-11-10" "2025-11-11"
-[316] "2025-11-12" "2025-11-13" "2025-11-14" "2025-11-15" "2025-11-16"
-[321] "2025-11-17" "2025-11-18" "2025-11-19" "2025-11-20" "2025-11-21"
-[326] "2025-11-22" "2025-11-23" "2025-11-24" "2025-11-25" "2025-11-26"
-[331] "2025-11-27" "2025-11-28" "2025-11-29" "2025-11-30" "2025-12-01"
-[336] "2025-12-02" "2025-12-03" "2025-12-04" "2025-12-05" "2025-12-06"
-[341] "2025-12-07" "2025-12-08" "2025-12-09" "2025-12-10" "2025-12-11"
+[311] "2026-11-07" "2026-11-08" "2026-11-09" "2026-11-10" "2026-11-11"
+[316] "2026-11-12" "2026-11-13" "2026-11-14" "2026-11-15" "2026-11-16"
+[321] "2026-11-17" "2026-11-18" "2026-11-19" "2026-11-20" "2026-11-21"
+[326] "2026-11-22" "2026-11-23" "2026-11-24" "2026-11-25" "2026-11-26"
+[331] "2026-11-27" "2026-11-28" "2026-11-29" "2026-11-30" "2026-12-01"
+[336] "2026-12-02" "2026-12-03" "2026-12-04" "2026-12-05" "2026-12-06"
+[341] "2026-12-07" "2026-12-08" "2026-12-09" "2025-12-10" "2025-12-11"
 [346] "2025-12-12" "2025-12-13" "2025-12-14" "2025-12-15" "2025-12-16"
 [351] "2025-12-17" "2025-12-18" "2025-12-19" "2025-12-20" "2025-12-21"
 [356] "2025-12-22" "2025-12-23" "2025-12-24" "2025-12-25" "2025-12-26"
@@ -1852,8 +1872,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../src/ica/18-interactive-viz-notes.html" class="pagination-link" aria-label="18 Interactive Viz">
-        <span class="nav-page-text"><span class="chapter-title">18 Interactive Viz</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../src/ica/07-wrangling-2-notes.html" class="pagination-link" aria-label="7 Adv Data wrangling P2">
+        <span class="nav-page-text"><span class="chapter-title">7 Adv Data wrangling P2</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
