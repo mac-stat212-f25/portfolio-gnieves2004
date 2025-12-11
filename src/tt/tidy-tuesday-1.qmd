@@ -1,0 +1,151 @@
+---
+title: "Tidy Tuesday #1 - Census Home Vale Ramsey County"
+---
+
+```{r echo = FALSE, results = "hide", message = FALSE}
+library(dplyr)
+library(lubridate)
+library(stringr)
+library(ggplot2)
+library(sf) #install.packages('sf')
+library(spdep) #install.packages('spdep')
+library(kableExtra)
+library(knitr)
+
+
+#read in data
+load('SpatialData.RData')
+#clean data
+ramsey_data <- ramsey_data %>% 
+  mutate(
+    pctWhite = (`Race_White alone`)*100, # convert to percentage for easier interpretation
+    incomeThousands = (IncomeE)/1000) # convert to thousands for interpretation
+```
+
+# Ramsey County Housing Census Data (first 10 rows of data)
+
+```{r echo = FALSE, warnings = "hide"}
+ramsey_data %>%
+  head(n = 10) %>%
+  kbl(caption = "Ramsey County Cencus Data")
+  
+```
+
+#Ramsey County Housing Structure
+
+```{r echo= FALSE, warnings = "hide", message=FALSE}
+Queen <- poly2nb(ramsey_data, queen = TRUE)
+
+ramsey_centroids <- st_centroid(st_geometry(ramsey_data), of_largest_polygon = TRUE)
+nb_Q_net <- nb2lines(nb = Queen, coords = ramsey_centroids, as_sf = TRUE)
+
+# 1. Filter Highways (I-35E and I-94)
+barriers_hwy <- roads_sub %>% 
+  filter(FULLNAME %in% c("I- 35E", "I- 94"))
+
+
+# 2. Filter Water (Mississippi River)
+barriers_water <- areawater %>% 
+  filter(FULLNAME == "Mississippi Riv")
+
+# 3. Combine barriers into one geometry list for easier checking
+
+# Check intersections with Highways
+# st_intersects returns a list. If the length > 0, it hit a barrier.
+intersects_hwy <- st_intersects(nb_Q_net, barriers_hwy)
+bad_hwy_links <- lengths(intersects_hwy) > 0
+
+# Check intersections with Water
+intersects_water <- st_intersects(nb_Q_net, barriers_water)
+bad_water_links <- lengths(intersects_water) > 0
+
+# Combine to find all links that cross ANY barrier
+links_to_remove <- bad_hwy_links | bad_water_links
+
+# Create a new visual network without the barrier-crossing lines
+nb_Q_net_adjusted <- nb_Q_net[!links_to_remove, ]
+
+# Create a copy of the original neighbor list
+Queen_adjusted <- Queen
+
+# nb_Q_net has columns 'i' and 'j' representing the indices of the neighbors
+# We grab the subset of rows we marked for removal
+removed_pairs <- nb_Q_net[links_to_remove, ]
+
+# Loop through the bad pairs and unlink them in the neighbor list
+for(k in 1:nrow(removed_pairs)){
+  # Get the indices of the two tracts that shouldn't be connected
+  idx_i <- removed_pairs$i[k]
+  idx_j <- removed_pairs$j[k]
+  
+  # Remove j from i's neighbor list
+  Queen_adjusted[[idx_i]] <- setdiff(Queen_adjusted[[idx_i]], idx_j)
+  
+  # Remove i from j's neighbor list (symmetry)
+  Queen_adjusted[[idx_j]] <- setdiff(Queen_adjusted[[idx_j]], idx_i)
+}
+
+
+ramsey_data %>% 
+  ggplot() + 
+  # 1. Base Map (Tracts) - Background
+  geom_sf(fill = "white", color = "grey90") +
+  
+  # 2. Water Barriers (Polygon)
+  # Map 'fill' to a name to create a legend entry
+  geom_sf(data = barriers_water, aes(fill = "River Barrier"), color = NA, alpha = 0.5) +
+  
+  # 3. Neighbor Connections (Lines)
+  # Map 'color' to a name
+  geom_sf(data = nb_Q_net_adjusted, aes(color = "Neighbor Links"), alpha = 0.5) +
+  
+  # 4. Highway Barriers (Lines)
+  # Map 'color' to a name
+  geom_sf(data = barriers_hwy, aes(color = "Highway Barrier"), size = 1.2) +
+  
+  # 5. Centroids (Points)
+  geom_sf(data = ramsey_centroids, 
+          aes(fill = "Centroids"), 
+          size = 1.5,     # Bigger size
+          shape = 21,     # Circle with outline
+          color = "white",# White outline color
+          stroke = 0.5) +   # Thickness of the outline
+  
+  # 6. Define the Colors manually
+  # We combine the line features into one scale
+  scale_color_manual(name = "Network Structure",
+                     values = c("Highway Barrier" = "red", 
+                                "Neighbor Links" = "black")) +
+  # We combine the fill features into another scale
+  scale_fill_manual(name = "Features", 
+                    values = c("River Barrier" = "lightblue", 
+                               "Centroids" = "black")) +
+  
+  theme_classic() +
+  labs(title = "Ramsey County Neighborhood Structure",
+       subtitle = "Adjusted for Highways (I-35E, I-94) and River Barriers",
+       caption = "Figure 1 ") +
+  theme(axis.title = element_blank(),
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank(),
+          plot.caption = element_text(face = "italic", size = 10)) 
+```
+
+
+# How much are people in Ramsey County spending on housing based on income? 
+
+```{r echo = FALSE, warnings = "hide", message=FALSE}
+ramsey_data %>%
+  ggplot(aes(x = incomeThousands, y = HouseValueE, color = pctWhite)) +
+  geom_point(aes(size = 4), show.legend = FALSE)+
+  geom_smooth()+
+  theme_minimal() +
+  labs(x = "Average Income in Thousands", y = "Average Home Value", title = "Income vs. Home Value and White Population Percentage", color = "percentage")
+```
+
+
+
+
+
+
