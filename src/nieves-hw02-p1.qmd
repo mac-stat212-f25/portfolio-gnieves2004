@@ -1,0 +1,115 @@
+---
+title: "HW02-P1 Adv Data Viz"
+---
+
+## Instructions
+
+Using `ggplot2` and other tools in R, recreate the original New York Times graphic to the greatest extent possible. Try to get as close as possible to the figure below:
+
+![](https://hash-mac.github.io/stat212site-f25/images/hw1_goal.png){width=600, fig-align="center"}
+
+You will need to use reference pages and documentation to discover necessary tools. For example, you may want to Google search "ggplot multiple plots". When looking through results, check publication dates and use newer references. Some helpful resources could include R documentation, Stack Overflow, and [R cheatsheets](https://rstudio.github.io/cheatsheets/).
+
+
+**Requirements**
+
+- Temperature graph
+    - Bands for the record, normal, and actual highs and lows are shown in the correct colors.
+    - Downward triangles point to the record high temperatures above the red band.
+    - Text displays the record high temperatures above the triangles.
+    - X-axis label: 3-letter month abbreviations appear in the middle of each month.
+    - Y-axis label: Tick marks at 0, 40, 80, and 120 only.
+    - Vertical lines separate the months.
+    - Title of "Temperature" is included.
+- Precipitation
+    - Tan area and blue line reflecting the monthly cumulative precipitation is included.
+    - Text (number) for cumulative precipitation for each month is included at the end of each month just above the blue line.
+    - Downward triangles point to the record precipitation days.
+    - Vertical lines separate the months.
+    - Title of "Precipitation" is included.
+- Overall
+    - Both the temperature and precipitation graphs are in one figure.
+    - The temperature plot takes up more vertical space than the precipitation plot.
+    - The title "SFO weather in 2011" is present.
+- Resource reflection
+    - At least 1 resource is listed
+    - At least 3 sentences about resources and their helpfulness in the task
+
+**Bonus:** If you'd like further practice, recreate the legend in the temperature graph that shows how the colored lines relate to record, normal, and actual highs.
+
+
+## Setup
+
+```{r}
+# Code for loading packages and reading in data
+library(tidyverse)
+library(ggpubr)
+library(ggrepel)
+library(gridExtra)
+weather <- read_csv("https://mac-stat.github.io/data/sfo_weather.csv")
+```
+## Visualization
+
+```{r fig.width= 10}
+# Code for recreating the visualization
+# Use as many code chunks as you need to organize your work well
+
+weather_record_high <- weather %>%
+  select(date, RecordHigh, Record, RecordText) %>%
+  filter(Record == TRUE)
+
+weather_months <- weather %>%
+  select(date, Month, Day, RecordHigh) %>%
+  filter(Day < 2) %>%
+  pull(date) #makes date a vector from a table
+  
+temperature_plot <- weather %>% 
+  ggplot(aes(x = date)) +
+  scale_y_continuous(breaks = c(0, 40, 80, 120), limits = c(0,130)) +
+  geom_vline(xintercept = weather_months, linetype = "dashed", color = "grey") +
+  geom_linerange(aes(ymin = RecordLow, ymax = RecordHigh, linewidth = 0.3), color = '#ECEBE3') + 
+  geom_linerange(aes(ymin = NormalLow, ymax= NormalHigh, linewidth = 0.3), color = '#C8B8BA') +
+  geom_linerange(aes(ymin = Low, ymax = High, linewidth = 0.2), color = "#A90248") +
+  scale_x_date(date_labels = "%b", date_breaks = "1 month") +
+  geom_point(data = weather_record_high, (aes(y = RecordHigh+0.5)), shape = 25, fill = "black", size = 3, )+
+  geom_text_repel(aes(y = RecordHigh + 2, label = RecordText), check_overlap = TRUE, size = 3) +
+  theme_classic() +
+  labs(title = "Temperature", y = "Temperature in Farenheit", x = "Month") +
+  theme(legend.position = "none") 
+  
+prec_high <- weather %>%
+  select(date, RecordP, Precip) %>%
+  filter(RecordP == TRUE)
+
+prec_month <- weather %>%
+  select(date, CulmPrec, Month, Day) %>%
+  group_by(Month) %>%
+  mutate(highest_day = max(Day)) %>%
+  filter(highest_day == Day)
+
+precipitation_plot <- weather %>%
+  ggplot(aes(x = date)) +
+  scale_y_continuous(breaks = c(4, 8), limits = c(0,8)) +
+  geom_vline(xintercept = weather_months, linetype = "dashed", color = "grey") +
+  geom_area(aes(y = CulmPrec), fill = '#ECEBE3', color = "#32a3d8") +
+  geom_point(data = prec_high, (aes(y = Precip+0.2)), shape = 25, fill = "black", size = 3)+
+  geom_text(data = prec_month, aes(y = CulmPrec+0.4, label = CulmPrec), check_overlap = TRUE, size = 3) +
+  theme_classic() +
+  labs(title = "Precepitation", y = "Precipitation")
+
+grid.arrange(temperature_plot, precipitation_plot)
+  
+```
+
+## Resources Reflection (required)
+
+List the resources you used to help with this assignment then write 3-5 sentence reflection on which resources were most helpful in finishing this task.
+
+**Resources:**
+
+- Preceptor and SciQ
+- ggplot2 Website
+- Stackflow
+
+**Reflection:**
+
